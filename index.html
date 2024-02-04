@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="BoolFalse, https://boolfalse.com">
+  <meta name="description" content="Three Traits | BoolFalse">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+
+  <title>Three Traits | BoolFalse</title>
+
+  <style>
+    html, body {height: 100%;margin: 0;font-family: Arial, sans-serif;}
+    body {-webkit-box-align: center;-ms-flex-align: center;align-items: center;background-color: #f1f2f3;display: -webkit-box;display: -ms-flexbox;display: flex;flex-direction: column;margin-bottom: 60px;}
+    .container {margin: 20px auto;}
+    .switch {display: inline-block;height: 34px;position: relative;width: 60px;margin-bottom: 10px;}
+    .switch input {display:none;}
+    .slider {background-color: #ccc;bottom: 0;cursor: pointer;left: 0;position: absolute;right: 0;top: 0;transition: .4s;}
+    .slider:before {background-color: #fff;bottom: 4px;content: "";height: 26px;left: 4px;position: absolute;transition: .4s;width: 26px;}
+    #checkbox1:checked + .slider {background-color: #ef5350;}
+    #checkbox2:checked + .slider {background-color: #42a5f5;}
+    #checkbox3:checked + .slider {background-color: #66bb6a;}
+    input:checked + .slider:before {transform: translateX(26px);}
+    .slider.round {border-radius: 34px;}
+    .slider.round:before {border-radius: 50%;}
+    .title {font-size: 24px;font-weight: bold;margin: 20px;}
+    .checkbox-title {font-size: 16px;font-weight: bold;margin: 10px;}
+    .footer-link {position: fixed;bottom: 0;left: 50%;transform: translateX(-50%);background-color: #f1f1f1;padding: 10px;text-align: center;width: 100%;}
+    .footer-link-text {color: #000;text-decoration: none;}
+  </style>
+</head>
+<body>
+
+<div class="title" id="topTitle">...</div>
+
+<div class="container">
+  <div class="checkbox-title" id="toggleTitle1">...</div>
+  <label class="switch" for="checkbox1">
+    <input type="checkbox" id="checkbox1" disabled />
+    <div class="slider round"></div>
+  </label>
+
+  <div class="checkbox-title" id="toggleTitle2">...</div>
+  <label class="switch" for="checkbox2">
+    <input type="checkbox" id="checkbox2" disabled />
+    <div class="slider round"></div>
+  </label>
+
+  <div class="checkbox-title" id="toggleTitle3">...</div>
+  <label class="switch" for="checkbox3">
+    <input type="checkbox" id="checkbox3" disabled />
+    <div class="slider round"></div>
+  </label>
+</div>
+
+<div class="footer-link">
+  <a class="footer-link-text" href="https://boolfalse.com" rel="noopener noreferrer">
+    <strong>BoolFalse</strong>
+  </a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Set initial titles
+    document.getElementById('topTitle').textContent = "What type of Husband would you like to have?";
+    document.getElementById('toggleTitle1').textContent = "Rich";
+    document.getElementById('toggleTitle2').textContent = "Beautiful";
+    document.getElementById('toggleTitle3').textContent = "Young";
+
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let lastSelected = null;
+
+    checkboxes.forEach((checkbox, index) => {
+      checkbox.addEventListener('change', function () {
+        lastSelected = this;
+        // console.log(`Checkbox ${index + 1}: ${this.checked}`);
+        if (checkboxes[0].checked && checkboxes[1].checked && lastSelected === checkboxes[0]) {
+          checkboxes[2].disabled = true;
+          checkboxes[2].checked = false;
+        }
+        if (checkboxes[1].checked && checkboxes[2].checked && lastSelected === checkboxes[1]) {
+          checkboxes[0].disabled = true;
+          checkboxes[0].checked = false;
+        }
+        if (checkboxes[2].checked && checkboxes[0].checked && lastSelected === checkboxes[2]) {
+          checkboxes[1].disabled = true;
+          checkboxes[1].checked = false;
+        }
+        if (checkboxes[0].checked && checkboxes[1].checked && lastSelected === checkboxes[1]) {
+          checkboxes[2].disabled = true;
+          checkboxes[2].checked = false;
+        }
+        if (checkboxes[1].checked && checkboxes[2].checked && lastSelected === checkboxes[2]) {
+          checkboxes[0].disabled = true;
+          checkboxes[0].checked = false;
+        }
+        if (checkboxes[2].checked && checkboxes[0].checked && lastSelected === checkboxes[0]) {
+          checkboxes[1].disabled = true;
+          checkboxes[1].checked = false;
+        }
+
+      });
+    });
+
+    // Enable/disable checkboxes on user interaction
+    document.addEventListener('click', function (event) {
+      const target = event.target;
+      const label = target.closest('label');
+      if (label) {
+        const checkbox = label.querySelector('input[type="checkbox"]');
+        checkbox.disabled = !checkbox.disabled;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
